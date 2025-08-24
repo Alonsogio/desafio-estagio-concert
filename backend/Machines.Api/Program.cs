@@ -2,13 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using Machines.Api.Data;
 using Machines.Api.Repositories;
 using Machines.Api.Services;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseUrls("http://localhost:5190");
 
 builder.Services.AddControllers()
-       .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = null);
+       .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

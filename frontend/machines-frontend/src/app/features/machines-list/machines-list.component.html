@@ -1,0 +1,155 @@
+<div class="d-flex flex-column justify-content-center align-items-center mb-4">
+  <label for="statusFilter" class="form-label">Filter by Status</label>
+  <select
+    id="statusFilter"
+    class="form-select w-auto"
+    [(ngModel)]="statusFilter"
+    (change)="applyFilter()"
+  >
+    <option value="">All</option>
+    <option value="operating">Operating</option>
+    <option value="maintenance">Maintenance</option>
+    <option value="offline">Offline</option>
+  </select>
+</div>
+
+<div class="list-map-container">
+  <table
+    *ngIf="paginatedMachines.length"
+    class="table table-striped table-hover align-middle"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th class="text-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of paginatedMachines">
+        <td>{{ m.name }}</td>
+        <td>{{ m.location }}</td>
+        <td>
+          <span
+            class="badge p-2"
+            [ngClass]="{
+              'bg-success': m.status === 'operating',
+              'bg-warning text-dark': m.status === 'maintenance',
+              'bg-secondary': m.status === 'offline'
+            }"
+          >
+            {{ m.status }}
+          </span>
+        </td>
+        <td class="text-center align-middle">
+          <div class="d-flex flex-column gap-2">
+            <a
+              class="btn btn-sm btn-outline-primary"
+              [routerLink]="['/machines', m.id]"
+            >
+              Details
+            </a>
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#updateModal-' + m.id"
+            >
+              Update
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div
+    class="pagination-controls d-flex justify-content-between align-items-center mt-3"
+    *ngIf="allMachines.length > itemsPerPage"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      ← Anterior
+    </button>
+    <span>Página {{ currentPage }}</span>
+    <button
+      class="btn btn-outline-secondary"
+      (click)="nextPage()"
+      [disabled]="currentPage * itemsPerPage >= allMachines.length"
+    >
+      Próxima →
+    </button>
+  </div>
+
+  <div
+    id="map"
+    class="map-container rounded shadow"
+    [class.d-none]="!hasCoords"
+  ></div>
+</div>
+
+<div *ngFor="let m of paginatedMachines">
+  <div
+    class="modal fade"
+    [id]="'updateModal-' + m.id"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form (ngSubmit)="updateTelemetry(m.id)">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Telemetry - {{ m.name }}</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Location</label>
+              <input
+                name="location"
+                [(ngModel)]="editCache[m.id].location"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <select
+                name="status"
+                [(ngModel)]="editCache[m.id].status"
+                class="form-select"
+              >
+                <option value="operating">Operating</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="offline">Offline</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

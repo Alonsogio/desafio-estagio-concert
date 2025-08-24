@@ -1,0 +1,17 @@
+.list-map-container {
+  padding: 1rem;
+
+  .table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .pagination-controls {
+    font-size: 0.95rem;
+  }
+
+  .map-container {
+    height: 360px;
+    border: 2px solid #ddd;
+  }
+}
