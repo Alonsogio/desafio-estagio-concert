@@ -1,0 +1,18 @@
+<div class="container mt-4" *ngIf="machine">
+  <h2>Machine Details</h2>
+
+  <ul class="list-group mt-3 mb-5">
+    <li class="list-group-item"><b>Name:</b> {{ machine.name }}</li>
+    <li class="list-group-item"><b>Location:</b> {{ machine.location }}</li>
+    <li class="list-group-item"><b>Status:</b> {{ machine.status }}</li>
+    <li class="list-group-item"><b>Latitude:</b> {{ machine.latitude }}</li>
+    <li class="list-group-item"><b>Longitude:</b> {{ machine.longitude }}</li>
+  </ul>
+
+  <div *ngIf="hasCoords" class="mt-4 mb-5">
+    <h5>Location Map</h5>
+    <div id="details-map" style="height: 360px"></div>
+  </div>
+
+  <a routerLink="/machines" class="btn btn-secondary mt-3">Back</a>
+</div>

@@ -1,0 +1,59 @@
+body {
+  background: #f5f6fa;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+.table {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.btn {
+  border-radius: 6px;
+}
+
+.container {
+  max-width: 960px;
+}
+
+.content-wrapper {
+  padding: 0 16px 32px;
+}
+
+.list-map-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.list-map-container table {
+  max-width: 700px;
+  width: calc(50% - 12px);
+}
+
+.map-container {
+  height: 360px;
+  max-width: 700px;
+  width: calc(50% - 12px);
+}
+
+.pagination-controls {
+  width: calc(50% - 12px);
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+
+@media (max-width: 934px) {
+  .list-map-container table,
+  .map-container,
+  .pagination-controls {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}

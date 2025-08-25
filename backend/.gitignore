@@ -1,0 +1,35 @@
+# Build
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.app
+
+# User-specific
+*.user
+*.suo
+*.vs/
+
+# Config
+appsettings.*.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+
+# Database
+*.db
+*.mdf
+*.ldf
+
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
